@@ -1,18 +1,8 @@
 require 'benchmark'
 
-original_data = []
-data = []
-
-# ファイル読み込み、配列に格納
-File.open(ARGV[0], 'r') do |f|
-    f.each_line do |line|
-        row = line.split(',', -1).map { |x| x.to_i }
-        data.push(row)
-    end
-end
-
 # 数独の盤面を表すクラス
 class Board
+
     # それぞれのマスを表すクラス
     # そのマスの候補の数字のリストとしても機能する
     # 連結リストのアイテムとしても機能する作りになっている
@@ -27,7 +17,7 @@ class Board
             @related_cells = {}
             @changed_cells = []
             if value == 0 then
-                @candidates = [ true, true, true, true, true, true, true, true, true ]
+                @candidates = [true,true,true,true,true,true,true,true,true]
                 @count = 9
             else
                 @count = 0
@@ -133,9 +123,11 @@ class Board
                     end
                 end
             end
+            self
         end
     end
     # Cellクラスの定義終了
+
 
     # 空きマスリスト（双方向連結リストによる実装）
     class EmptyList
@@ -188,6 +180,7 @@ class Board
     end
     # EmptyListの定義終了
 
+
     # ここからBoardクラスの定義
     attr_reader :is_valid
 
@@ -215,7 +208,7 @@ class Board
         end
     end
 
-    # 改良バックトラック
+    # 改良バックトラック（再帰呼び出し）
     def solve
         if @empty_list.count == 0 then
             # 解けた！
@@ -256,10 +249,25 @@ class Board
     def get_data
         data = []
         9.times do |i|
-            row = @cells[i * 9, 9]
-            data.push( row.map { |cell| cell.value } )
+            data.push( @cells[i * 9, 9].map { |cell| cell.value } )
         end
         return data
+    end
+end
+# Boardクラスの定義終了
+
+
+# すべてのクラスの定義が終了
+# ここから実際の処理
+
+
+# ファイル読み込み、配列に格納
+data = []
+
+File.open(ARGV[0], 'r') do |f|
+    f.each_line do |line|
+        row = line.split(',', -1).map { |x| x.to_i }
+        data.push(row)
     end
 end
 
