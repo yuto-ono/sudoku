@@ -35,11 +35,11 @@ class Board
             area33left = col / 3 * 3
 
             9.times do |i|
-                add_related_cells( cells, row * 9 + i )
-                add_related_cells( cells, i * 9 + col )
+                add_related_cell( cells, row * 9 + i )
+                add_related_cell( cells, i * 9 + col )
                 row33 = area33top  + (i / 3)
                 col33 = area33left + (i % 3)
-                add_related_cells( cells, row33 * 9 + col33 )
+                add_related_cell( cells, row33 * 9 + col33 )
             end
             
             if is_filled then
@@ -57,10 +57,10 @@ class Board
         end
 
         # 空きマスかどうか
-        def is_empty () @value == 0 end
+        def is_empty() @value == 0 end
 
         # is_empty の逆
-        def is_filled () @value != 0 end
+        def is_filled() @value != 0 end
 
         # 数字をセット　関連セルの候補も更新
         # 矛盾が生じたら false を返す
@@ -106,8 +106,8 @@ class Board
 
         private
 
-        # set_related_cell から内部的に呼ばれる
-        def add_related_cells (cells, pos)
+        # 指定位置のセルを関連セルのリストに追加
+        def add_related_cell (cells, pos)
             @related_cells[pos] = cells[pos]  if pos != @pos
             self
         end
@@ -140,7 +140,7 @@ class Board
         end
 
         # 要素を最後に追加
-        def push(cell)
+        def push (cell)
             cell.prev = @head.prev
             cell.next = @head
             cell.prev.next = cell
@@ -163,7 +163,7 @@ class Board
         def first() @head.next end
 
         # 空きマスリストから要素を削除
-        def remove(cell)
+        def remove (cell)
             cell.prev.next = cell.next
             cell.next.prev = cell.prev
             @count -= 1
@@ -171,7 +171,7 @@ class Board
         end
     
         # 空きマスリストに要素を復活
-        def restore(cell)
+        def restore (cell)
             cell.prev.next = cell
             cell.next.prev = cell
             @count += 1
@@ -185,7 +185,7 @@ class Board
     attr_reader :is_valid
 
     # 初期化
-    def initialize(data)
+    def initialize (data)
         # セルのリストを作成
         @cells = []  # 高速化のため一次元配列
         @is_valid = true
