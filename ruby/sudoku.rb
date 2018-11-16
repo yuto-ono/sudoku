@@ -28,7 +28,7 @@ class Board
         # セルのリストが完成した後に呼ぶべし
         # 矛盾を発見したら false を返す
         def init (cells)
-            # related_cell （関連セル）のセット
+            # related_cells （関連セルのリスト）のセット
             row = @pos / 9
             col = @pos % 9
             area33top  = row / 3 * 3
