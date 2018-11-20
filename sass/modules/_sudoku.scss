@@ -1,0 +1,24 @@
+.sudoku {
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+
+  @media (max-width: 620px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.sudoku__grid {
+  position: relative;
+}
+
+.sudoku__btn-grid {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.sudoku__btn + .sudoku__btn {
+  margin-left: 20px;
+}

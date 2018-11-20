@@ -1,0 +1,87 @@
+.panel {
+  position: absolute;
+  z-index: 100;
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  
+  @media (max-width: 620px) {
+    padding: 5px;
+    border-radius: 6px;
+  }
+
+  &:before {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    content: "";
+  }
+  
+  @for $i from 1 to 10 {
+    &.col-#{$i} {
+      left: #{ ($i - 1) * 6.25% };
+      
+      &:before {
+        left: #{ $i * 9% };
+      }
+    }
+    
+    &.row-#{$i} {
+      @if $i < 7 {
+        top: #{ $i * 11.111111% + 3% };
+        
+        &:before {
+          top: -8px;
+          border-bottom: 10px solid #fff;
+        }
+      }
+      @else {
+        bottom: #{ (10 - $i) * 11.111111% + 3% };
+        
+        &:before {
+          bottom: -8px;
+          border-top: 10px solid #fff;
+        }
+      }
+    }
+  }
+}
+
+.panel-enter-active, .panel-leave-active {
+  transition: opacity 0.3s;
+}
+
+.panel-enter, .panel-leave-to {
+  opacity: 0;
+}
+
+.panel__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.panel__item {
+  width: 33.333333%;
+  padding: 5px;
+  
+  @media (max-width: 620px) {
+    padding: 2px;
+  }
+  
+  &.clear {
+    width: 100%;
+  }
+}
+
+.panel__shade {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

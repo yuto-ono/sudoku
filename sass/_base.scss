@@ -1,0 +1,27 @@
+body, div, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, ul, ol {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-size: 14px;
+  font-family: "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "Hiragino Sans", "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.75;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}

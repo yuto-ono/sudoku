@@ -1,0 +1,50 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  
+  > li {
+    width: 11.111111%;
+    height: 55px;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 55px;
+    text-align: center;
+    cursor: pointer;
+
+    @media (max-width: 620px) {
+      height: calc((100vw - 20px) / 9);
+      line-height: calc((100vw - 20px) / 9);
+      font-size: 20px;
+    }
+    
+    &.inputed {
+      background-color: #ff9;
+    }
+    
+    &:nth-child(9n) {
+      border-right: 2px solid #999;
+    }
+
+    &:nth-child(3n+1) {
+      border-left: 2px solid #999;
+    }
+
+    &:nth-child(n+73) {
+      border-bottom: 2px solid #999;
+    }
+
+    &:nth-child(27n+1),
+    &:nth-child(27n+2),
+    &:nth-child(27n+3),
+    &:nth-child(27n+4),
+    &:nth-child(27n+5),
+    &:nth-child(27n+6),
+    &:nth-child(27n+7),
+    &:nth-child(27n+8),
+    &:nth-child(27n+9) {
+      border-top: 2px solid #999;
+    }
+  }
+}

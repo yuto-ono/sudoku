@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width">
+	<title>数独を一瞬で解いてしまうプログラム</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrapper">
+  <h1 class="title">数独を一瞬で解いてしまうプログラム</h1>
+  
+	<div class="sudoku" id="sudoku">
+	  
+	  <div class="sudoku__grid">
+      <ul class="grid">
+        <li :class="{ inputed: item.inputed }"
+          v-for="(item, i) in items"
+          @click="show_panel(i)">{{ item.value | zero_empty }}</li>
+      </ul>
+
+      <transition name="panel">
+        <div class="panel" v-show="panel_is_active"
+          :class="[ 'row-' + row, 'col-' + col ]">
+          
+          <ul class="panel__list">
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(7)">7</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(8)">8</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(9)">9</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(4)">4</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(5)">5</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(6)">6</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(1)">1</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(2)">2</button>
+            </li>
+            <li class="panel__item">
+              <button type="button" class="btn number" @click="input(3)">3</button>
+            </li>
+            <li class="panel__item clear">
+              <button type="button" class="btn clear" @click="input(0)">クリア</button>
+            </li>
+          </ul>
+        </div>
+      </transition>
+    </div>
+    
+    <div class="sudoku__btn-grid">
+      <div class="sudoku__btn">
+        <button type="button" class="btn solve" @click="solve">{{ solved ? '戻す' : '実行' }}</button>
+      </div>
+      <div class="sudoku__btn">
+        <button type="button" class="btn reset" @click="reset">リセット</button>
+      </div>
+    </div>
+    
+    <div class="panel__shade" v-show="panel_is_active" @click="cancel"></div>
+	</div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/cell.js"></script>
+<script src="js/empty-list.js"></script>
+<script src="js/board.js"></script>
+<script src="js/main.js"></script>
+</html>
