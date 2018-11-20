@@ -10,7 +10,7 @@ gulp.task("server", function() {
 	return browser.init({
 		ghostMode: false,
 		server: {
-			baseDir: "html"
+			baseDir: "docs"
 		}
 	});
 });
@@ -24,13 +24,13 @@ gulp.task("sass", function(done) {
 			browsers: ["last 2 versions", "ie >= 11", "Android >= 4.4", "ios_saf >= 11"]
 		}))
 		// .pipe(sourcemaps.write(""))
-		.pipe(gulp.dest("html/css"))
+		.pipe(gulp.dest("docs/css"))
 		.pipe(browser.stream());
 	done();
 });
 
 gulp.task("watch", function() {
-	gulp.watch("html/**/*.html").on("change", browser.reload);
+	gulp.watch("docs/**/*.html").on("change", browser.reload);
 	gulp.watch("sass/**/*.scss", gulp.series("sass"));
 });
 
