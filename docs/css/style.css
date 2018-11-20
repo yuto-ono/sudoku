@@ -32,7 +32,7 @@ body {
 .wrapper {
   width: 100%;
   overflow: hidden;
-  padding-top: 40px;
+  padding-top: 30px;
   padding-bottom: 80px;
 }
 
@@ -43,6 +43,12 @@ body {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+}
+
+@media (max-width: 620px) {
+  .title {
+    font-size: 18px;
+  }
 }
 
 .sudoku {
