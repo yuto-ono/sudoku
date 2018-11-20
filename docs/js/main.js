@@ -1,5 +1,6 @@
 new Vue({
   el: '#sudoku',
+  
   data: {
     items: [],
     panel_is_active: false,
@@ -38,6 +39,10 @@ new Vue({
         var data = this.items.map(function(item) { return item.value; });
         var board = new Board(data);
 
+        if (window.history && window.history.pushState) {
+          window.history.pushState(null, null, '?data=' + data.join(''));
+        }
+
         if (!board.is_valid) {
           alert('無効なデータです。');
         }
@@ -61,6 +66,23 @@ new Vue({
         item.inputed = false;
       }
       this.solved = false;
+    },
+
+    init: function() {
+      this.items.length = 0;
+      var match = window.location.search.match(/[?&]data=(\d{81})(?=&|#|$)/);
+      if (match) {
+        var data_string = match[1];
+        for (var i = 0; i < 81; i++) {
+          var value = Number(data_string[i]);
+          this.items.push({ value: value, inputed: !!value });
+        }
+      }
+      else {
+        for (var i = 0; i < 81; i++) {
+          this.items.push({ value: 0, inputed: false });
+        }
+      }
     }
   },
 
@@ -80,8 +102,8 @@ new Vue({
   },
 
   created: function () {
-    for (var i = 0; i < 81; i++) {
-      this.items.push({ value: 0, inputed: false })
-    }
+    var vm = this;
+    this.init();
+    window.addEventListener('popstate', function () { vm.init(); }, false);
   }
 });
