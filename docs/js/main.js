@@ -44,7 +44,7 @@ new Vue({
         }
 
         if (!board.is_valid) {
-          alert('無効なデータです。');
+          alert('重複があります。');
         }
         else if (board.solve()) {
           data = board.getData();
