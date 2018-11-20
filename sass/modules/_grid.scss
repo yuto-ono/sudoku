@@ -12,6 +12,8 @@
     line-height: 55px;
     text-align: center;
     cursor: pointer;
+    user-select: none;
+    -webkit-touch-callout: none;
 
     @media (max-width: 620px) {
       height: calc((100vw - 20px) / 9);
