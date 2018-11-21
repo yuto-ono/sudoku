@@ -7,7 +7,6 @@ class Board
     # そのマスの候補の数字のリストとしても機能する
     # 連結リストのアイテムとしても機能する作りになっている
     class Cell
-        include Enumerable
         attr_accessor :prev, :next, :count
         attr_reader :pos, :value, :candidates
 
@@ -96,14 +95,6 @@ class Board
             self
         end
 
-        # 候補に挙がっている数字を返す
-        def each
-            @candidates.each_with_index do |is_candidate, i|
-                yield i + 1 if is_candidate
-            end
-            self
-        end
-
         private
 
         # 指定位置のセルを関連セルのリストに追加
@@ -131,7 +122,6 @@ class Board
 
     # 空きマスリスト（双方向連結リストによる実装）
     class EmptyList
-        include Enumerable
         attr_reader :count
 
         def initialize
@@ -209,17 +199,15 @@ class Board
 
     # 改良バックトラック（再帰呼び出し）
     def solve
-        if @empty_list.count == 0 then
-            # 解けた！
-            return true
-        end
+        # 空きマスがなければ終了
+        return true if @empty_list.count == 0
 
         # 空きマスのうち、最も候補が少ないものを取得
         cell = @empty_list.pop_min
 
         # 候補に挙がっている数字を入れてみる
-        cell.each do |candidate|
-            if cell.set_value(candidate) then
+        cell.candidates.each_with_index do |is_candidate, i|
+            if is_candidate && cell.set_value(i + 1) then
                 return true if solve
                 cell.reset_value
             end
