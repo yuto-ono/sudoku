@@ -17,7 +17,7 @@ class Board
             @related_cells = {}
             @changed_cells = []
             if value == 0 then
-                @candidates = [true,true,true,true,true,true,true,true,true]
+                @candidates = [ true ] * 9
                 @count = 9
             else
                 @count = 0
