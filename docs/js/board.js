@@ -46,23 +46,21 @@ Board.prototype.solve = function () {
   this.empty_list.remove(target_cell);
 
   // 候補に挙がっている数字を入れてみる
-  var result = false, self = this;
-  target_cell.each(function (candidate) {
-    if (target_cell.set_value(candidate)) {
-      if (self.solve()) {
-        result = true;
-        return false;
+  for (var i = 1, mask = 1; i <= 9; i++) {
+    mask <<= 1;
+    if (target_cell.candidates & mask) {
+      if (target_cell.set_value(i)) {
+        if (this.solve()) {
+          return true;
+        }
+        target_cell.reset_value();
       }
-      target_cell.reset_value();
     }
-  });
-
-  if (!result) {
-    // 解けなかったので、元に戻してやり直し
-    this.empty_list.restore(target_cell);
   }
 
-  return result;
+  // 解けなかったので、元に戻してやり直し
+  this.empty_list.restore(target_cell);
+  return false;
 };
 
 // 配列でデータを取得

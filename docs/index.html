@@ -69,13 +69,17 @@
       </div>
     </div>
     
+    <div class="sudoku__timer">
+      <p class="timer">実行時間: <span class="timer__time">{{ time | fixed(2) }}</span>ms</p>
+    </div>
+    
     <div class="panel__shade" v-show="panel_is_active" @click="cancel"></div>
 	</div>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="js/cell.js"></script>
-<script src="js/empty-list.js"></script>
-<script src="js/board.js"></script>
-<script src="js/main.js"></script>
+<script src="js/cell.js?20181121"></script>
+<script src="js/empty-list.js?20181121"></script>
+<script src="js/board.js?20181121"></script>
+<script src="js/main.js?20181121"></script>
 </html>

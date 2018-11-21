@@ -85,16 +85,6 @@ Cell.prototype.reset_value = function () {
   this.value = 0;
 };
 
-// 候補に挙がっている数字でループ処理
-Cell.prototype.each = function (callback) {
-  for (var i = 1, mask = 1; i <= 9; i++) {
-    mask <<= 1;
-    if (this.candidates & mask) {
-      if (callback(i) === false) break;
-    }
-  }
-};
-
 // 指定位置のセルを関連セルのリストに追加
 Cell.prototype.add_related_cell = function (cells, row, col) {
   var pos = row * 9 + col;

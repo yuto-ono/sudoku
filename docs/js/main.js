@@ -5,7 +5,8 @@ new Vue({
     items: [],
     panel_is_active: false,
     current_index: 0,
-    solved: false
+    solved: false,
+    time: null
   },
 
   methods: {
@@ -23,6 +24,14 @@ new Vue({
 
     cancel: function() {
       this.panel_is_active = false;
+    },
+
+    solve_with_measure: function(board) {
+      var start = performance.now();
+      var result = board.solve();
+      var end = performance.now();
+      this.time = end - start;
+      return result;
     },
 
     solve: function() {
@@ -46,7 +55,7 @@ new Vue({
         if (!board.is_valid) {
           alert('重複があります。');
         }
-        else if (board.solve()) {
+        else if (this.solve_with_measure(board)) {
           data = board.getData();
           for (i = 0; i < 81; i++) {
             this.items[i].value = data[i];
@@ -98,6 +107,10 @@ new Vue({
   filters: {
     zero_empty: function(value) {
       return value || '';
+    },
+
+    fixed: function(value, digits) {
+      return value && value.toFixed(digits);
     }
   },
 

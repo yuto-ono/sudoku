@@ -82,6 +82,10 @@ body {
   margin-left: 20px;
 }
 
+.sudoku__timer {
+  margin-top: 20px;
+}
+
 .grid {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -426,4 +430,15 @@ body {
   color: #fff;
   font-size: 20px;
   font-weight: bold;
+}
+
+.timer {
+  font-size: 20px;
+  text-align: center;
+}
+
+.timer__time {
+  display: inline-block;
+  min-width: 80px;
+  text-align: right;
 }
