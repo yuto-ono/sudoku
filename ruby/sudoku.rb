@@ -148,26 +148,25 @@ class Board
             @count += 1
             self
         end
-
-        # ループ実装
-        def each
+        
+        # リスト中の最小の要素を取得
+        def pop_min
             cell = @head
+            min_count = 10
             while cell.next != @head
                 cell = cell.next
-                yield cell
+                if cell.count == 1 then
+                    selected_cell = cell
+                    break
+                elsif cell.count < min_count then
+                    min_count = cell.count
+                    selected_cell = cell
+                end
             end
-            self
-        end
-
-        # 最初の要素
-        def first() @head.next end
-
-        # 空きマスリストから要素を削除
-        def remove (cell)
-            cell.prev.next = cell.next
-            cell.next.prev = cell.prev
+            selected_cell.prev.next = selected_cell.next
+            selected_cell.next.prev = selected_cell.prev
             @count -= 1
-            self
+            selected_cell
         end
     
         # 空きマスリストに要素を復活
@@ -215,33 +214,19 @@ class Board
             return true
         end
 
-        # 空きマスのうち、最も候補が少ないものを選ぶ
-        target_cell = @empty_list.first
-        min_count = 9
-        @empty_list.each do |cell|
-            if cell.count == 1 then
-                # 候補が1個だけのが見つかったらループを抜ける
-                target_cell = cell
-                break
-            elsif cell.count < min_count then
-                target_cell = cell
-                min_count = cell.count
-            end
-        end
-
-        # 空きマスリストから選ばれたセルを削除
-        @empty_list.remove(target_cell)
+        # 空きマスのうち、最も候補が少ないものを取得
+        cell = @empty_list.pop_min
 
         # 候補に挙がっている数字を入れてみる
-        target_cell.each do |candidate|
-            if target_cell.set_value(candidate) then
+        cell.each do |candidate|
+            if cell.set_value(candidate) then
                 return true if solve
-                target_cell.reset_value
+                cell.reset_value
             end
         end
 
-        # 間違っているのでやり直し
-        @empty_list.restore(target_cell)
+        # 解けなかったので、元に戻してやり直し
+        @empty_list.restore(cell)
         return false
     end
 
