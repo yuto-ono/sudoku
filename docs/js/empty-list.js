@@ -13,25 +13,26 @@ EmptyList.prototype.push = function (cell) {
   this.length++;
 };
 
-// ループ処理
-EmptyList.prototype.each = function (callback) {
-  var cell = this.head;
+// リスト中の最小の要素を取得
+EmptyList.prototype.pop_min = function () {
+  var cell = this.head, selected_cell, min_length = 10;
+
   while (cell.next !== this.head) {
     cell = cell.next;
-    if (callback(cell) === false) break;
+    if (cell.length === 1) {
+      selected_cell = cell;
+      break;
+    }
+    if (cell.length < min_length) {
+      min_length = cell.length;
+      selected_cell = cell;
+    }
   }
-};
 
-// 最初の要素
-EmptyList.prototype.first = function () {
-  return this.head.next;
-};
-
-// 空きマスリストから要素を削除
-EmptyList.prototype.remove = function (cell) {
-  cell.prev.next = cell.next;
-  cell.next.prev = cell.prev;
+  selected_cell.prev.next = selected_cell.next;
+  selected_cell.next.prev = selected_cell.prev;
   this.length--;
+  return selected_cell;
 };
 
 // 空きマスリストに要素を復活
